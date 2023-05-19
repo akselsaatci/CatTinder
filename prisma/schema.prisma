@@ -1,0 +1,42 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String @id @default(cuid())
+  userName     String
+  userPassword String
+
+  @@unique([id, userName])
+}
+
+model toDo {
+  id        String  @id @default(cuid())
+  text      String
+  userId    String
+  completed Boolean
+}
+
+model cats {
+  id       String @id
+  imageUrl String
+  likeCount Int
+
+  @@unique([id])
+}
+model userLike{
+  id       String @id @default(cuid())
+  userId   String
+  catId    String
+
+  @@unique([id])
+}
+
